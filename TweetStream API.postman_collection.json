@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "59e32bd9-3027-424d-94c9-2d3101b32c89",
+		"name": "TweetStream API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Tweet Statistics (Default Number of HashTags)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7204/api/statistics",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7204",
+					"path": [
+						"api",
+						"statistics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tweet Statistics (25 Trending HashTags)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7204/api/statistics?numHashTags=25",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7204",
+					"path": [
+						"api",
+						"statistics"
+					],
+					"query": [
+						{
+							"key": "numHashTags",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
