@@ -33,7 +33,6 @@ namespace TweetStream.API
 
             builder.Services.AddHttpClient();
 
-
             // Start a Background service for the Twitter Producer that retrieves tweets from the Stream and Queues them
             // This should ideally be its own separate microservice app that pushes to a queue.
             builder.Services.AddHostedService<TweetQueueProducer>();
