@@ -7,6 +7,9 @@ using TweetStream.Data.Interfaces;
 
 namespace TweetStream.Data
 {
+    /// <summary>
+    /// The main Twitter Repository that Saves and retrieves data from the Data Store
+    /// </summary>
     public class TwitterRepository : ITwitterRepository
     {
         private ConcurrentBag<Tweet> list;
@@ -24,27 +27,16 @@ namespace TweetStream.Data
             hashTagsDict = new ConcurrentDictionary<string, int>();
         }
 
-        public void WriteTweet(string tweetData)
+        /// <summary>
+        /// Save the tweet data and update counts from an incoming Tweet into the data store
+        /// </summary>
+        /// <param name="tweet"></param>
+        public void SaveTweet(Tweet tweet)
         {
-            if (tweetData == null)
-            {
-                _logger.LogWarning($"Invalid tweet {tweetData} received. Ignoring and continuing");
-                return;
-            }
-
-            // set startdate on first receving writter data
+            // Set StartDate on first receving writter data
             if (startTime == null)
             {
                 startTime = DateTime.Now;
-            }
-
-            Tweet tweet = JsonConvert.DeserializeObject<Tweet>(tweetData);
-
-            if (tweet == null || tweet.Data == null || tweet.Data.Text == null)
-            {
-                // Invalid Tweet, Log and Return
-                _logger.LogWarning($"Invalid tweet {tweet} received. Ignoring and continuing");
-                return;
             }
 
             // Instead of add to a concurrent bag of objects, you write this to a database here
@@ -64,10 +56,14 @@ namespace TweetStream.Data
             {
                 Interlocked.Increment(ref tweetWithLinkCount);
             }
+        }
 
-            // Retrieve HashTags in the tweet (if any)
-            var hashTags = GetHashTags(tweet.Data.Text);
-
+        /// <summary>
+        /// Saves the list of HasTags into the hasTags dictionary with their counts for ease of statistics
+        /// </summary>
+        /// <param name="hashTags"></param>
+        public void SaveHashTags(List<string> hashTags)
+        {
             // Add HashTags to dictionary with their count so far to determine most used tags
             if (hashTags != null && hashTags.Count > 0)
             {
@@ -90,57 +86,21 @@ namespace TweetStream.Data
             }
         }
 
-        public List<string> GetHashTags(string tweet)
+        /// <summary>
+        /// Retrieve the Tweet data required for Statistics
+        /// </summary>
+        /// <returns></returns>
+        public async Task<TweetData> GetData()
         {
-            var hashTagPattern = $"(^|\\s)#([A-Za-z_][A-Za-z0-9_]*)";
-            if (string.IsNullOrEmpty(tweet))
-            {
-                return new List<string>();
-            }
-            var regEx = new Regex(hashTagPattern, RegexOptions.IgnoreCase);
-            var matches = regEx.Matches(tweet).Cast<Match>().Select(x => x.Value);
-            return matches?.ToList();
-        }
-
-        public async Task<TweetStats> GetStatistics(int numOfHashTags = 10)
-        {
-
             // Ready Database asynchronously here if we have a database
-
-            // Calculate statistics
-            long totalSeconds = (long)DateTime.Now.Subtract(startTime.Value).TotalSeconds;
-            long totalMinutes = (long)DateTime.Now.Subtract(startTime.Value).TotalMinutes;
-            long tweetsPerSec = totalSeconds == 0 ? 0 : tweetCount / totalSeconds;
-
-            var orderedDictionary = hashTagsDict
-                                        .OrderByDescending(x => x.Value)
-                                        .ToDictionary(x => x.Key, x => x.Value);
-            var numOfTags = numOfHashTags > 0 ? numOfHashTags : 10;
-
-            // Retrieve the given number of most trending HashTags
-            List<TrendingHashTag>? trendingHashTags = null;
-            if (orderedDictionary != null)
+            return new TweetData
             {
-                trendingHashTags = orderedDictionary
-                                    .Take(numOfTags)
-                                    .Select(x => { return new TrendingHashTag { HashTag = x.Key, Count = x.Value }; })?.ToList();
-            }
-
-            TweetStats tweetStats = new TweetStats()
-            {
-                TotalSeconds = totalSeconds,
-                TotalMinutes = totalMinutes,
-                TweetsPerSecond = tweetsPerSec,
-                Counts = new TweetCount
-                {
-                    Tweets = tweetCount,
-                    ReTweets = retweetCount,
-                    TweetsWithLink = tweetWithLinkCount,
-                },
-                TrendingHashTags = trendingHashTags
-
+                StartTime = startTime,
+                TweetCount = tweetCount,
+                ReTweetCount = retweetCount,
+                TweetWithLinksCount = tweetWithLinkCount,
+                HashTagsDict = hashTagsDict.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value)
             };
-            return tweetStats;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace TweetStream.Producer
 {
     /// <summary>
     /// The Producer Service to Read from a Twitter Stream and write to the queue
-    /// Note: This should be a microservice app publishing to a Service Bus queue, it was added as a Background Service library for demo purposes as we are in-memory Singleton data store
+    /// Note: This should be a microservice app publishing to a Service Bus queue, it was added as a Background Service library for demo purposes as we are using in-memory Singleton data store
     /// </summary>
     public class TweetQueueProducer : BackgroundService
     {
@@ -23,6 +23,12 @@ namespace TweetStream.Producer
             _queue = queue;
         }
 
+        /// <summary>
+        /// Main execute method that runs on Start of the Background Service Worker
+        /// This intializes the twitter stream, loops to Retrieves the next Tweet and adds it to the Queue
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             try

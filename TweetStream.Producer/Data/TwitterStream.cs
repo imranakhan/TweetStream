@@ -25,6 +25,11 @@ namespace TweetStream.Producer.Data
             _logger = logger;
         }
 
+        /// <summary>
+        /// Initialize the Stream reader and set the Bearer token
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task Initialize(CancellationToken cancellationToken)
         {
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_bearerToken}");
@@ -37,8 +42,15 @@ namespace TweetStream.Producer.Data
             }
         }
 
+        /// <summary>
+        /// Get the next stream Line / Tweet
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetNextAsync() => await _streamReader.ReadLineAsync();
 
+        /// <summary>
+        /// Close and dispose the stream on termination
+        /// </summary>
         public void Dispose()
         {
             if (_stream != null)

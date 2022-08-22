@@ -6,9 +6,14 @@ using TweetStream.Data.Interfaces;
 using TweetStream.Producer;
 using TweetStream.Producer.Data;
 using TweetStream.Producer.Data.Interfaces;
+using TweetStream.Service;
+using TweetStream.Service.Interfaces;
 
 namespace TweetStream.API
 {
+    /// <summary>
+    /// Main Entry Point of the Application. This currently runs the Producer, Consumer and the Statistics REST API
+    /// </summary>
     public class Program
     {
         static void Main(string[] args)
@@ -17,7 +22,8 @@ namespace TweetStream.API
 
             // Add services to the container.
             builder.Services.AddSingleton<ITwitterRepository, TwitterRepository>();
-            // Actual stream reader for the stream
+            builder.Services.AddTransient<ITwitterService, TwitterService>();
+            // Actual stream reader for reading the Twitter stream
             builder.Services.AddSingleton<ITwitterStream, TwitterStream>();
 
             // Ideally should be using ServiceBus queue or RabbitMQ. May swap this out with RabbitMQ in future commits.

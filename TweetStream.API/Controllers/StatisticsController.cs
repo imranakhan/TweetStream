@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TweetStream.Contracts;
 using TweetStream.Data.Interfaces;
+using TweetStream.Service.Interfaces;
 
 namespace TweetStream.API.Controllers
 {
@@ -12,18 +13,23 @@ namespace TweetStream.API.Controllers
     public class StatisticsController : ControllerBase
     {
         private readonly ILogger<StatisticsController> _logger;
-        private readonly ITwitterRepository _twitterRepository;
+        private readonly ITwitterService _twitterService;
 
-        public StatisticsController(ILogger<StatisticsController> logger, ITwitterRepository twitterRepository)
+        public StatisticsController(ILogger<StatisticsController> logger, ITwitterService twitterService)
         {
             _logger = logger;
-            _twitterRepository = twitterRepository;
+            _twitterService = twitterService;
         }
 
+        /// <summary>
+        /// Get Tweet Statistics
+        /// </summary>
+        /// <param name="numHashTags">Number of Trending HashTags to return</param>
+        /// <returns>The Tweet Statistics so far</returns>
         [HttpGet(Name = "GetTweetStatistics")]
         public async Task<ActionResult<TweetStats>> Get(int numHashTags)
         {
-            return await _twitterRepository.GetStatistics(numHashTags);
+            return await _twitterService.CalculateStatistics(numHashTags);
         }
     }
 }

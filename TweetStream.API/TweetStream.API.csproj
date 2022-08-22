@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TweetStream.Consumer\TweetStream.Consumer.csproj" />
     <ProjectReference Include="..\TweetStream.Producer\TweetStream.Producer.csproj" />
+    <ProjectReference Include="..\TweetStream.Service\TweetStream.Service.csproj" />
   </ItemGroup>
 
 </Project>
