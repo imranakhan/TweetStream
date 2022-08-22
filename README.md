@@ -21,12 +21,17 @@ While it uses an in-memory singleton object as a data store and ConcurrentQueue 
 There are also Unit Test Projects for each of the above projects.
 
 In order to run the application, Please update the Twitter bearer token in the API project's appsettings.json.
-And then just run the TweetStream.API project. 
+
+**Twitter.token**
+
+And then just run  TweetStream.API project. 
 
 It will open a Console window that shows the Producer/Consumer processing the data.
 
 Visit the Swagger UI to Get the stats:
+
 https://localhost:7204/swagger/index.html
+
 Or use the enclosed Postman collection json to hit it and get statistics.
 
 There were some shortcuts taken to make the application quick to do and easy to demo.
