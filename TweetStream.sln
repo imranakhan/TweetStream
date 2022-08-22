@@ -18,11 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{9072E2EF-7D18-4D1A-9C20-17F7F9A9A29F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9072E2EF-7D18-4D1A-9C20-17F7F9A9A29F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.API.Tests", "TweetStream.API.Tests\TweetStream.API.Tests.csproj", "{A8DEC117-BB6D-4F37-B155-1188F4F52437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.API.Tests", "Tests\TweetStream.API.Tests\TweetStream.API.Tests.csproj", "{A8DEC117-BB6D-4F37-B155-1188F4F52437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStream.Service", "TweetStream.Service\TweetStream.Service.csproj", "{A6FF7F5F-C0EC-444F-9FAE-49CD3FC0C880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Service", "TweetStream.Service\TweetStream.Service.csproj", "{A6FF7F5F-C0EC-444F-9FAE-49CD3FC0C880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
