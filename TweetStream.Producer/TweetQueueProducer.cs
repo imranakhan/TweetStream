@@ -44,7 +44,6 @@ namespace TweetStream.Producer
                     if(!string.IsNullOrWhiteSpace(tweetStr))
                     {
                         _queue.Enqueue(tweetStr);
-                        Console.Write($"+");
                     }
                     else if(tweetStr == "")
                     {
