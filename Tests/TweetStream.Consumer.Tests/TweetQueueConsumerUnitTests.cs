@@ -24,7 +24,7 @@ namespace TweetStream.Consumer.Tests
             mockLogger = new Mock<ILogger<TweetQueueConsumer>>();
             queue = new ConcurrentQueue<string>();
             mockTwitterService = new Mock<ITwitterService>();
-            var myConfiguration = new Dictionary<string, string> { {"NumOfQueues", "1"} };
+            var myConfiguration = new Dictionary<string, string> { { "NumOfConsumers", "1"} };
 
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(myConfiguration)

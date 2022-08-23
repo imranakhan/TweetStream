@@ -12,13 +12,13 @@ namespace TweetStream.Consumer
     /// </summary>
     public class TweetQueueConsumer : BackgroundService
     {
-        private readonly int _numOfQueues;
+        private readonly int _numOfConsumers;
         private readonly ILogger<TweetQueueConsumer> _logger;
         private ConcurrentQueue<string> _queue;
         private readonly ITwitterService _twitterService;
         public TweetQueueConsumer(ILogger<TweetQueueConsumer> logger, ConcurrentQueue<string> queue, ITwitterService twitterService, IConfiguration configuration)
         {
-            _numOfQueues = configuration.GetValue<int>("NumOfQueues");
+            _numOfConsumers = configuration.GetValue<int>("NumOfConsumers");
             _logger = logger;
             _queue = queue;
             _twitterService = twitterService;
@@ -36,9 +36,9 @@ namespace TweetStream.Consumer
 
             try
             {
-                // Create a total of numOfQueues tasks to parallely Consume queue tweets and Save
+                // Create a total of numOfConsumer tasks to parallely Consume queue tweets and Save
                 List<Task> tasks = new List<Task>();
-                for (int i = 1; i <= _numOfQueues; i++)
+                for (int i = 1; i <= _numOfConsumers; i++)
                 {
                     tasks.Add(new Task(async () => await RetrieveAndSave(cancellationToken)));
                 }
