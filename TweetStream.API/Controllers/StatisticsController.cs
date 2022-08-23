@@ -29,7 +29,16 @@ namespace TweetStream.API.Controllers
         [HttpGet(Name = "GetTweetStatistics")]
         public async Task<ActionResult<TweetStats>> Get(int numHashTags)
         {
-            return await _twitterService.CalculateStatistics(numHashTags);
+            var stats = await _twitterService.CalculateStatistics(numHashTags);
+
+            if (stats == null)
+            {
+                return StatusCode(500);
+            }
+            else
+            {
+                return Ok(stats);
+            }
         }
     }
 }

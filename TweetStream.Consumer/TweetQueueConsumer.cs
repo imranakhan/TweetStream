@@ -32,6 +32,7 @@ namespace TweetStream.Consumer
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             Console.WriteLine("Starting Consumer. Please Wait...");
+            Console.WriteLine("Each dot represents a tweet that has been processed =>");
 
             try
             {
@@ -69,10 +70,10 @@ namespace TweetStream.Consumer
                     if (_queue.TryDequeue(out string tweet))
                     {
                         //Console.WriteLine($"Task:{Task.CurrentId}, Tweet:{tweet}");
-                        Console.Write($".");
                         
                         // update the Repository with the Tweet data
                         _twitterService.WriteTweet(tweet);
+                        Console.Write($".");
                     }
                 }
                 catch (Exception ex)

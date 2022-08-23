@@ -36,4 +36,6 @@ https://localhost:7204/swagger/index.html
 
 Or use the enclosed **Postman collection json** to hit it and get statistics.
 
-There were some shortcuts taken to make the application quick to do and easy to demo.
+The application was built as a sample, and to be quick and easy to demo.
+
+### Hope you like it :)

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -62,11 +63,32 @@ namespace TweetStream.API.Tests
             var response = controller.Get(numOfHasTags).Result;
 
             // Assert
-            var result = response.Value;
+            var okResult = response.Result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            Assert.IsTrue(okResult.StatusCode == 200);
+            var result = okResult.Value as TweetStats;
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Counts.Tweets == 2700);
             Assert.IsTrue(result.TotalSeconds == 90);
             Assert.IsTrue(result.TrendingHashTags.Count == 2);
+        }
+
+        [TestMethod]
+        public void TestGetTweetStatistics_500Error()
+        {
+            // Arrange
+            var numOfHasTags = 2;
+            var expectedResult = CreateTweetStatsRecord();
+            mockTwitterService.Setup(x => x.CalculateStatistics(It.IsAny<int>())).ReturnsAsync((TweetStats)null);
+
+            // Act
+            var response = controller.Get(numOfHasTags).Result;
+
+            // Assert
+            Assert.IsNull(response.Value);
+            var statusCodeResult = response.Result as StatusCodeResult;
+            Assert.IsNotNull(statusCodeResult);
+            Assert.IsTrue(statusCodeResult.StatusCode == 500);
         }
     }
 }
