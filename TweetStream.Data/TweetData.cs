@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace TweetStream.Data
 {
     /// <summary>
-    /// Object containing all the required data store's tweet data for calculating statistics
+    /// Object containing all the required data store's twitter data for calculating statistics
     /// </summary>
-    public class TweetData
+    public class TwitterData
     {
         public DateTime? StartTime { get; set; }
 

@@ -116,7 +116,7 @@ namespace TweetStream.Service
         /// </summary>
         /// <param name="tweet">The tweet's content</param>
         /// <returns>List of strings representing the hashtags found in the given tweet</returns>
-        public List<string> RetrieveHashTagsFromTweet(string tweet)
+        private List<string> RetrieveHashTagsFromTweet(string tweet)
         {
             var hashTagPattern = $"(^|\\s)#([A-Za-z_][A-Za-z0-9_]*)";
             if (string.IsNullOrEmpty(tweet))

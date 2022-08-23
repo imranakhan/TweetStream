@@ -15,6 +15,7 @@ namespace TweetStream.Producer
         private readonly ILogger<TweetQueueProducer> _logger;
         private ConcurrentQueue<string> _queue;
         private ITwitterStream _twitterStream;
+        private int errorCount = 0;
 
         public TweetQueueProducer(ILogger<TweetQueueProducer> logger, ConcurrentQueue<string> queue, ITwitterStream twitterStream)
         {
@@ -31,6 +32,7 @@ namespace TweetStream.Producer
         /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
+            Console.WriteLine("Starting Producer. Please Wait...");
             try
             {
                 await _twitterStream.Initialize(cancellationToken);
@@ -39,9 +41,27 @@ namespace TweetStream.Producer
                 {
                     string tweetStr = await _twitterStream.GetNextAsync();
 
-                    if(tweetStr != null)
+                    if(!string.IsNullOrWhiteSpace(tweetStr))
                     {
                         _queue.Enqueue(tweetStr);
+                        Console.Write($"+");
+                    }
+                    else if(tweetStr == "")
+                    {
+                        // TwitterStream appears to occasionally send an empty string "" as the tweet.
+                        // Ignoring that and not counting that as a connection issue.
+                    }
+                    else
+                    {
+                        // Possible connection issue with Twitter Stream resulting in null
+                        // Backout 0.5 seconds each time and retry
+                        Thread.Sleep(500);
+                        errorCount++;
+                        if (errorCount > 10)
+                        {
+                            _logger.LogError("Producer: Exceeded error threshold. Exiting!");
+                            break;
+                        }
                     }
                 }
             }

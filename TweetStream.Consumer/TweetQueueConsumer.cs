@@ -31,6 +31,8 @@ namespace TweetStream.Consumer
         /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
+            Console.WriteLine("Starting Consumer. Please Wait...");
+
             try
             {
                 // Create a total of numOfQueues tasks to parallely Consume queue tweets and Save
@@ -66,7 +68,8 @@ namespace TweetStream.Consumer
                     // Retrieve Data from the Concurrent Queue
                     if (_queue.TryDequeue(out string tweet))
                     {
-                        Console.WriteLine($"Task:{Task.CurrentId}, Tweet:{tweet}");
+                        //Console.WriteLine($"Task:{Task.CurrentId}, Tweet:{tweet}");
+                        Console.Write($".");
                         
                         // update the Repository with the Tweet data
                         _twitterService.WriteTweet(tweet);

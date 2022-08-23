@@ -90,10 +90,10 @@ namespace TweetStream.Data
         /// Retrieve the Tweet data required for Statistics
         /// </summary>
         /// <returns></returns>
-        public async Task<TweetData> GetData()
+        public async Task<TwitterData> GetData()
         {
             // Ready Database asynchronously here if we have a database
-            return new TweetData
+            return new TwitterData
             {
                 StartTime = startTime,
                 TweetCount = tweetCount,
