@@ -49,6 +49,7 @@ namespace TweetStream.Producer
                     {
                         // TwitterStream appears to occasionally send an empty string "" as the tweet.
                         // Ignoring that and not counting that as a connection issue.
+                        _logger.LogInformation("Empty string Tweet received. Skipping");
                     }
                     else
                     {

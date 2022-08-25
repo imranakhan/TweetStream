@@ -72,8 +72,7 @@ namespace TweetStream.Data
                     foreach (var hashTag in hashTags)
                     {
                         var tempHashTag = hashTag.Trim();
-                        if (hashTagsDict.ContainsKey(tempHashTag)
-                            && hashTagsDict.TryGetValue(tempHashTag, out int count))
+                        if (hashTagsDict.TryGetValue(tempHashTag, out int count))
                         {
                             hashTagsDict[tempHashTag] = count + 1;
                         }

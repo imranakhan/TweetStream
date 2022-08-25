@@ -7,6 +7,9 @@ using TweetStream.Service.Interfaces;
 
 namespace TweetStream.Service
 {
+    /// <summary>
+    /// The Service that performs all Twitter related business logic including retrieving statistics from the Repo
+    /// </summary>
     public class TwitterService : ITwitterService
     {
         private ILogger<TwitterService> _logger;
@@ -85,7 +88,7 @@ namespace TweetStream.Service
                 {
                     trendingHashTags = orderedDictionary
                                         .Take(numOfTags)
-                                        .Select(x => { return new TrendingHashTag { HashTag = x.Key, Count = x.Value }; })?.ToList();
+                                        .Select(x => new TrendingHashTag { HashTag = x.Key, Count = x.Value })?.ToList();
                 }
 
                 tweetStats = new TweetStats()

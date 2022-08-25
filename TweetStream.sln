@@ -24,13 +24,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.API.Tests", "Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Service", "TweetStream.Service\TweetStream.Service.csproj", "{A6FF7F5F-C0EC-444F-9FAE-49CD3FC0C880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStream.Service.Tests", "Tests\TweetStream.Service.Tests\TweetStream.Service.Tests.csproj", "{BE793099-933C-4D63-8FE9-333B279285EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Service.Tests", "Tests\TweetStream.Service.Tests\TweetStream.Service.Tests.csproj", "{BE793099-933C-4D63-8FE9-333B279285EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStream.Data.Tests", "Tests\TweetStream.Data.Tests\TweetStream.Data.Tests.csproj", "{049D93BE-5607-4D77-9318-F78066411FEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Data.Tests", "Tests\TweetStream.Data.Tests\TweetStream.Data.Tests.csproj", "{049D93BE-5607-4D77-9318-F78066411FEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStream.Consumer.Tests", "Tests\TweetStream.Consumer.Tests\TweetStream.Consumer.Tests.csproj", "{3D0F33BF-04D0-4A2A-B32E-437206E7C366}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Consumer.Tests", "Tests\TweetStream.Consumer.Tests\TweetStream.Consumer.Tests.csproj", "{3D0F33BF-04D0-4A2A-B32E-437206E7C366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStream.Producer.Tests", "Tests\TweetStream.Producer.Tests\TweetStream.Producer.Tests.csproj", "{84802F2C-FFB2-45A1-B56F-DB82E4849F2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TweetStream.Producer.Tests", "Tests\TweetStream.Producer.Tests\TweetStream.Producer.Tests.csproj", "{84802F2C-FFB2-45A1-B56F-DB82E4849F2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
